@@ -33,12 +33,14 @@ services:
       - internal-network
 
   celery:
-    image: your_django_image:latest # Use the same image as your Django app
-    build:
-      context: .
-      dockerfile: Dockerfile # Specify the Dockerfile to use
+    build: .
     command: ["celery", "-A", "exposingscams", "worker", "--loglevel=info"]
+    volumes:
+      - .:/app
+    env_file:
+      - .env
     depends_on:
+      - db
       - redis
     networks:
       - tutor_local_default
