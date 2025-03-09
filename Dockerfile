@@ -2,8 +2,7 @@ FROM python:3.10
 
 # Install system dependencies including CMake
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    cmake \  # Install CMake
+    cmake \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
