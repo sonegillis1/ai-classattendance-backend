@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  web:
+    image: your_django_image:latest # Replace with your actual Django image
+    build:
+      context: .
+      dockerfile: Dockerfile # Ensure you have a Dockerfile for your Django app
+    volumes:
+      - .:/app # Mount your app directory
+    environment:
+      - DEBUG=True # Set to False in production
+      - DATABASE_URL=postgres://user:password@db:5432/dbname # Update with your DB credentials
+    depends_on:
+      - db
+      - redis
+    command: python manage.py runserver 0.0.0.0:8000 # Change this for production
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  celery:
+    image: your_django_image:latest # Use the same image as your Django app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A your_project_name worker --loglevel=info # Replace with your project name
+    depends_on:
+      - redis
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: dbname # Replace with your database name
+      POSTGRES_USER: user # Replace with your database user
+      POSTGRES_PASSWORD: password # Replace with your database password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
