@@ -9,10 +9,10 @@ services:
     volumes:
       - .:/app # Mount your app directory
     environment:
-      - DEBUG=True # Set to False in production
-      - EMAIL_HOST_USER
-      - EMAIL_HOST_PASSWORD
-      - DEFAULT_FROM_EMAIL
+      - DEBUG=${DEBUG} # Set to False in production
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+      - DEFAULT_FROM_EMAIL=${DEFAULT_FROM_EMAIL}
 
     depends_on:
       - db
@@ -22,7 +22,7 @@ services:
   redis:
     image: redis:alpine
     ports:
-      - "6379:6379"
+      - "6379"
 
   celery:
     image: your_django_image:latest # Use the same image as your Django app
@@ -40,7 +40,7 @@ services:
       POSTGRES_USER: user # Replace with your database user
       POSTGRES_PASSWORD: password # Replace with your database password
     ports:
-      - "5432:5432"
+      - "5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
