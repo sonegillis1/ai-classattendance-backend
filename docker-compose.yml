@@ -12,11 +12,11 @@ services:
       - EMAIL_HOST_USER=${EMAIL_HOST_USER}
       - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
       - DEFAULT_FROM_EMAIL=${DEFAULT_FROM_EMAIL}
-      - DATABASE_NAME: ${DATABASE_NAME}
-      - DATABASE_USER: ${DATABASE_USER}
-      - DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      - DATABASE_HOST: ${DATABASE_HOST}
-      - DJANGO_SETTINGS_MODULE: classattendance.settings.production
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DJANGO_SETTINGS_MODULE=classattendance.settings.production
     networks:
       - tutor_local_default
       - internal-network
