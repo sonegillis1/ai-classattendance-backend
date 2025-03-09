@@ -25,3 +25,5 @@ CACHES = {
         }
     }
 }
+
+ALLOWED_HOSTS = ['*']
