@@ -5,12 +5,15 @@ services:
     image: your_django_image:latest # Replace with your actual Django image
     build:
       context: .
-      dockerfile: Dockerfile # Ensure you have a Dockerfile for your Django app
+      dockerfile: Dockerfile # Specify the Dockerfile to use
     volumes:
       - .:/app # Mount your app directory
     environment:
       - DEBUG=True # Set to False in production
-      - DATABASE_URL=postgres://user:password@db:5432/dbname # Update with your DB credentials
+      - EMAIL_HOST_USER
+      - EMAIL_HOST_PASSWORD
+      - DEFAULT_FROM_EMAIL
+
     depends_on:
       - db
       - redis
@@ -25,8 +28,8 @@ services:
     image: your_django_image:latest # Use the same image as your Django app
     build:
       context: .
-      dockerfile: Dockerfile
-    command: celery -A your_project_name worker --loglevel=info # Replace with your project name
+      dockerfile: Dockerfile # Specify the Dockerfile to use
+    command: celery -A classattendance worker --loglevel=info # Replace with your project name
     depends_on:
       - redis
 

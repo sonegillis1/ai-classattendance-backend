@@ -120,7 +120,7 @@ def detect_face_and_orientation(image):
         keypoints = faces[0]['keypoints']
 
         yaw = get_yaw_angle(keypoints, image.shape)
-
+        print('####### yaw is ', yaw)
         if abs(yaw) > 10:
             if (yaw > 0): face_orientation = -1 # Left side face
             else: face_orientation = 1 # Right side face
