@@ -63,3 +63,5 @@ volumes:
 networks:
   tutor_local_default:
     external: true
+  internal-network:
+    external: false
