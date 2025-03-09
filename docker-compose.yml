@@ -47,9 +47,9 @@ services:
   db:
     image: postgres:latest
     environment:
-      POSTGRES_DB=${DATABASE_NAME} # Replace with your database name
-      POSTGRES_USER=${DATABASE_USER} # Replace with your database user
-      POSTGRES_PASSWORD=${DATABASE_PASSWORD} # Replace with your database password
+      - POSTGRES_DB=${DATABASE_NAME} # Replace with your database name
+      - POSTGRES_USER=${DATABASE_USER} # Replace with your database user
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD} # Replace with your database password
     ports:
       - "5432"
     volumes:
