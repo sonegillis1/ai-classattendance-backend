@@ -42,7 +42,6 @@ django-cors-headers==4.7.0
 django-redis==5.4.0
 djangorestframework==3.15.2
 djangorestframework_simplejwt==5.5.0
-dlib==19.24.6
 dm-tree==0.1.9
 docstring_parser==0.16
 drf-yasg==1.21.9
