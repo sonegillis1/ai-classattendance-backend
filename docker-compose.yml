@@ -2,7 +2,6 @@ version: "3.8"
 
 services:
   web:
-    image: your_django_image:latest # Replace with your actual Django image
     build:
       context: .
       dockerfile: Dockerfile # Specify the Dockerfile to use
@@ -13,7 +12,14 @@ services:
       - EMAIL_HOST_USER=${EMAIL_HOST_USER}
       - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
       - DEFAULT_FROM_EMAIL=${DEFAULT_FROM_EMAIL}
-
+      - DATABASE_NAME: ${DATABASE_NAME}
+      - DATABASE_USER: ${DATABASE_USER}
+      - DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      - DATABASE_HOST: ${DATABASE_HOST}
+      - DJANGO_SETTINGS_MODULE: classattendance.settings.production
+    networks:
+      - tutor_local_default
+      - internal-network
     depends_on:
       - db
       - redis
@@ -23,6 +29,8 @@ services:
     image: redis:alpine
     ports:
       - "6379"
+    networks:
+      - internal-network
 
   celery:
     image: your_django_image:latest # Use the same image as your Django app
@@ -32,6 +40,9 @@ services:
     command: celery -A classattendance worker --loglevel=info # Replace with your project name
     depends_on:
       - redis
+    networks:
+      - tutor_local_default
+      - internal-network
 
   db:
     image: postgres:latest
@@ -43,6 +54,12 @@ services:
       - "5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - internal-network
 
 volumes:
   postgres_data:
+
+networks:
+  tutor_local_default:
+    external: true
