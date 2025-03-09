@@ -37,7 +37,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile # Specify the Dockerfile to use
-    command: celery -A classattendance worker --loglevel=info # Replace with your project name
+    command: ["celery", "-A", "exposingscams", "worker", "--loglevel=info"]
     depends_on:
       - redis
     networks:
