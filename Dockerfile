@@ -1,5 +1,12 @@
 FROM python:3.10.3
 
+ # Install system dependencies including CMake
+ RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \  # Add CMake installation
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 # Set the working directory inside the container
 WORKDIR /app
 
