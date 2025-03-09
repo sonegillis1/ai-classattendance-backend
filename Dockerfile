@@ -1,9 +1,9 @@
-FROM python:3.10.3
+FROM python:3.10
 
- # Install system dependencies including CMake
- RUN apt-get update && apt-get install -y \
+# Install system dependencies including CMake
+RUN apt-get update && apt-get install -y \
     build-essential \
-    cmake \  # Add CMake installation
+    cmake \  # Install CMake
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
@@ -12,6 +12,7 @@ WORKDIR /app
 
 # Install dependencies
 COPY requirements.txt /app/
+RUN pip install --upgrade pip  # Upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the current directory contents into the container at /app
